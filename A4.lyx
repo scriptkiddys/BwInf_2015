@@ -1,0 +1,154 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+Aufgabe 4
+\end_layout
+
+\begin_layout Standard
+Teilaufgabe 1.1:
+\end_layout
+
+\begin_layout Standard
+Man kann jeden Punkt, an dem ein Loch sein kann, als bit darstellen.
+ Außerdem kann man die Zeilen auch nebeneinander statt untereinander aufschreibe
+n.
+ Alle Möglichkeiten der Schlüsselkarte entsprechen also einer binären Zahl
+ mit der Länge der Anzahl der Löcher, minus den beiden Löchern links und
+ rechts oben, da diese schon gegeben sind.
+ Folglich gilt:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+2^{(Zeilenzahl-1)*Lochzahl}*2^{Lochzahl-2}=Anzahl\;Möglichkeiten
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Von der insgesamten Zeilenzahl wird 1 abgezogen, da die erste Zeile die
+ beiden fixen Löcher enthält und somit unvollständig ist.
+ Die Löcher der obersten Zeile werden mit dem zweiten Quotienten wieder
+ hinzugefügt.
+ Bei dem konkreten Beispiel gilt also:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+2^{(5-1)*5}*2^{5-2}=2^{20}*2^{3}=2^{23}=\underline{\underline{8.388.608}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Teilaufgabe 1.2:
+\end_layout
+
+\begin_layout Standard
+Da die beiden Randspalten links und rechts der mittleren Spalte voneinander
+ abhängig sind, kann man eine der beiden Punktgruppen vernachlässigen.
+ Man rechnet statt dessen nur mit den Spalten bis zu der plus der mittleren
+ Spalte, die sich alle beliebig verhalten können:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+2^{(Spaltenzahl\,zur\,Mitte+1)*Zeilenzahl}=Anzahl\;Möglichkeiten
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Konkret bedeutet das:
+\begin_inset Formula 
+\[
+2^{(2+1)*5}=2^{15}=\underline{\underline{32.768}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
