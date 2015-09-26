@@ -73,6 +73,8 @@ Aufgabe 4
 \end_layout
 
 \begin_layout Standard
+
+\series bold
 Teilaufgabe 1.1:
 \end_layout
 
@@ -117,6 +119,12 @@ Von der insgesamten Zeilenzahl wird 1 abgezogen, da die erste Zeile die
 \end_layout
 
 \begin_layout Standard
+Also können 8.388.608 verschiendene Schlüssel produziert werden.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
 Teilaufgabe 1.2:
 \end_layout
 
@@ -148,6 +156,10 @@ Konkret bedeutet das:
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Also können 32.768 verschiedene spiegelsymmetrische Schlüssel erstellt werden.
 \end_layout
 
 \end_body
