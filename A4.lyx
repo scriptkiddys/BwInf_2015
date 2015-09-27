@@ -91,7 +91,7 @@ n.
 \begin_layout Standard
 \begin_inset Formula 
 \[
-2^{(Zeilenzahl-1)*Lochzahl}*2^{Lochzahl-2}=Anzahl\;Möglichkeiten
+2^{Lochzahl(Zeilenzahl-1)}\cdot2^{Lochzahl-2}=Anzahl\;Möglichkeiten
 \]
 
 \end_inset
@@ -110,7 +110,7 @@ Von der insgesamten Zeilenzahl wird 1 abgezogen, da die erste Zeile die
 \begin_layout Standard
 \begin_inset Formula 
 \[
-2^{(5-1)*5}*2^{5-2}=2^{20}*2^{3}=2^{23}=\underline{\underline{8.388.608}}
+2^{5(5-1)}\cdot2^{5-2}=2^{20}\cdot2=2^{23}=\underline{\underline{8.388.608}}
 \]
 
 \end_inset
@@ -133,12 +133,9 @@ Da die beiden Randspalten links und rechts der mittleren Spalte voneinander
  abhängig sind, kann man eine der beiden Punktgruppen vernachlässigen.
  Man rechnet statt dessen nur mit den Spalten bis zu der plus der mittleren
  Spalte, die sich alle beliebig verhalten können:
-\end_layout
-
-\begin_layout Standard
 \begin_inset Formula 
 \[
-2^{(Spaltenzahl\,zur\,Mitte+1)*Zeilenzahl}=Anzahl\;Möglichkeiten
+2^{(Spaltenzahl\,zur\,Mitte+1)\cdot Zeilenzahl}=Anzahl\;Möglichkeiten
 \]
 
 \end_inset
@@ -150,7 +147,7 @@ Da die beiden Randspalten links und rechts der mittleren Spalte voneinander
 Konkret bedeutet das:
 \begin_inset Formula 
 \[
-2^{(2+1)*5}=2^{15}=\underline{\underline{32.768}}
+2^{5(2+1)}=2^{15}=\underline{\underline{32.768}}
 \]
 
 \end_inset
