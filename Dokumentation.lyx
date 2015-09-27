@@ -114,7 +114,7 @@ Teilaufgabe 1.1:
 Es gibt insgesamt für jedes Loch zwei Möglichkeiten: gestanzt oder nicht.
  Da es 23 Löcher gibt, die nicht schon vorgegeben wurden, gibt es für diese
  Einschränkung 
-\begin_inset Formula $2^{23}=8388608$
+\begin_inset Formula $2^{23}=8.388.608$
 \end_inset
 
  verschieden Schlüsselkarten.
@@ -128,7 +128,7 @@ Teilaufgabe 1.2:
 Hier werden die rechten zwei Spalten durch die linken bestimmt, deshalb
  gibt es noch 15 Löcher, die variiert werden können.
  Also gibt es für diese Methode 
-\begin_inset Formula $2^{15}=32768$
+\begin_inset Formula $2^{15}=32.768$
 \end_inset
 
  verschiedene Schlüsselkarten.
