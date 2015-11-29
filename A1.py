@@ -25,8 +25,10 @@ def convert_to_direction(field1, field2): #Position von field1 relativ zu field2
         raise RuntimeError()
 
 
-with open(r".\Kassopeia\kassopeia0.txt") as d:
+with open(r".\Kassiopeia\kassiopeia7.txt") as d:
     STRING = d.read()
+    while STRING.rsplit("\n", 1)[1] == "": #leere letzte Zeile löschen
+        STRING = STRING.rsplit("\n", 1)[0]
 
 
 #Macht den String zu einer zweidimensionalen Liste

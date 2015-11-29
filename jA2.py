@@ -16,8 +16,10 @@ def print_visualising_fields(visualising_fields, step): #Gibt den aktuellen Zust
     print("\n".join(["".join(row) for row in visualising_fields]))
     print("Schritt: "+str(step)+"\n")
 
-with open(r".\Kassopeia\kassopeia0.txt") as d:
+with open(r".\Kassiopeia\kassiopeia0.txt") as d:
     STRING = d.read()
+    while STRING.rsplit("\n", 1)[1] == "": #leere letzte Zeile löschen
+        STRING = STRING.rsplit("\n", 1)[0]
 
 #Macht den String zu einer zweidimensionalen Liste
 #True: weisses Feld (oder Kassopeia)

@@ -222,13 +222,13 @@ Lösungsidee:
 \end_layout
 
 \begin_layout Standard
-Da das Ziel ist zu überprüfen, ob Kassopeia alle weißen Felder erreichen
- kann, soll versucht werden ausgehend von eine Liste mit Feldern, die Kassopeia
- erreichen kann zu erstellen, die am Anfang nur mit Kassopeias Feld gefüllt
+Da das Ziel ist zu überprüfen, ob Kassiopeia alle weißen Felder erreichen
+ kann, soll versucht werden ausgehend von eine Liste mit Feldern, die Kassiopeia
+ erreichen kann zu erstellen, die am Anfang nur mit Kassiopeias Feld gefüllt
  ist und dann jeweils um alle angrenzenden Felder der Felder in dieser Liste
  erweitert wird, bis es keine weiteren gibt.
- Diese sind dann alle Felder die Kassopeia erreichen kann und nun kann überprüft
- werden, ob dies alle weißen Felder sind.
+ Diese sind dann alle Felder die Kassiopeia erreichen kann und nun kann
+ überprüft werden, ob dies alle weißen Felder sind.
  
 \end_layout
 
@@ -243,17 +243,17 @@ Neue Felder: alle Felder die in einem Schritt als weiße Nachbarfelder von
 \end_layout
 
 \begin_layout Enumerate
-Überprüfte Felder: Felder, die von Kassopeia aus erreichbar sind, deren
+Überprüfte Felder: Felder, die von Kassiopeia aus erreichbar sind, deren
  Nachbarfelder aber noch nicht überprüft wurden
 \end_layout
 
 \begin_layout Enumerate
-Vollstandig überprüfte Felder: Felder, die von Kassopeia aus erreichbar
+Vollstandig überprüfte Felder: Felder, die von Kassiopeia aus erreichbar
  sind und deren Nachbarfelder bereits überprüft wurden.
 \end_layout
 
 \begin_layout Standard
-Das Feld von Kassopeia wird am Anfang zu den überprüften Feldern gezählt
+Das Feld von Kassiopeia wird am Anfang zu den überprüften Feldern gezählt
  und dann werden in jedem Schritt folgende Anweisungen ausgeführt:
 \end_layout
 
@@ -272,7 +272,7 @@ Alle neuen Felder, die nicht bereits vollständig überprüft wurden, werden
 
 \begin_layout Standard
 Dies wird so lange durchgeführt bis es keine neuen Felder mehr gibt und
- damit alle weißen Felder, die Kassopeia erreichen kann, zu den vollständig
+ damit alle weißen Felder, die Kassiopeia erreichen kann, zu den vollständig
  überprüften Feldern gehören.
 \end_layout
 
@@ -470,59 +470,59 @@ Beispiele:
 \end_layout
 
 \begin_layout Paragraph*
-kassopeia1.txt
+kassiopeia1.txt
 \end_layout
 
 \begin_layout Standard
-Kassopeia sind einige Felder versperrt.
+Kassiopeia sind einige Felder versperrt.
 \end_layout
 
 \begin_layout Paragraph*
-kassopeia2.txt
+kassiopeia2.txt
 \end_layout
 
 \begin_layout Standard
-Kassopeia kann alle Felder erreichen.
+Kassiopeia kann alle Felder erreichen.
 \end_layout
 
 \begin_layout Paragraph*
-kassopeia3.txt
+kassiopeia3.txt
 \end_layout
 
 \begin_layout Standard
-Kassopeia kann alle Felder erreichen.
+Kassiopeia kann alle Felder erreichen.
 \end_layout
 
 \begin_layout Paragraph*
-kassopeia4.txt
+kassiopeia4.txt
 \end_layout
 
 \begin_layout Standard
-Kassopeia kann alle Felder erreichen.
+Kassiopeia kann alle Felder erreichen.
 \end_layout
 
 \begin_layout Paragraph*
-kassopeia5.txt
+kassiopeia5.txt
 \end_layout
 
 \begin_layout Standard
-Kassopeia kann alle Felder erreichen.
+Kassiopeia kann alle Felder erreichen.
 \end_layout
 
 \begin_layout Paragraph*
-kassopeia6.txt
+kassiopeia6.txt
 \end_layout
 
 \begin_layout Standard
-Kassopeia kann alle Felder erreichen.
+Kassiopeia kann alle Felder erreichen.
 \end_layout
 
 \begin_layout Paragraph*
-kassopeia7.txt
+kassiopeia7.txt
 \end_layout
 
 \begin_layout Standard
-Kassopeia kann alle Felder erreichen.
+Kassiopeia kann alle Felder erreichen.
 \end_layout
 
 \begin_layout Subsection*
@@ -587,6 +587,117 @@ while new_fields or first:
 
 \begin_layout LyX-Code
     step += 1
+\end_layout
+
+\begin_layout Section*
+Aufgabe 1
+\end_layout
+
+\begin_layout Subsection*
+Lösungsidee:
+\end_layout
+
+\begin_layout Standard
+Wir haben für die Lösung dieser Aufgabe einen rekursiven Lösungsansatz verwendet.
+ Bei diesem ruft sich eine Funktion immer wieder selbst auf und verändert
+ dabei nur die Parameter leicht.
+ (https://de.wikipedia.org/wiki/Rekursion)
+\end_layout
+
+\begin_layout Standard
+Um einen Weg für Kassiopeia zu finden, bei dem sie jedes weiße Feld einmal
+ betritt und die Felder 
+\begin_inset Formula $F$
+\end_inset
+
+ bereits betreten hat
+\end_layout
+
+\begin_layout Itemize
+wird überprüft, ob 
+\begin_inset Formula $F$
+\end_inset
+
+ bereits alle weißen Felder beinhaltet, dann ist die Lösung gefunden und
+ wird zurückgegeben.
+\end_layout
+
+\begin_layout Itemize
+wird versucht für jedes Nachbarfeld des zuletzt betretenen Feldes, das nicht
+ in 
+\begin_inset Formula $F$
+\end_inset
+
+ vorkommt (sonst würde Kassiopeia ein Feld doppelt betreten können) einen
+ solchen Weg zu finden
+\end_layout
+
+\begin_layout Itemize
+Wenn ein Weg gefunden wurde, dann ist die Lösung gefunden und wird zurückgegeben
+\end_layout
+
+\begin_layout Itemize
+Wenn keine Weg gefunden wurde, dann wir dies als Ergebnis zurückgegeben
+\end_layout
+
+\begin_layout Subsection*
+Beispiele:
+\end_layout
+
+\begin_layout Paragraph*
+kassiopeia1.txt
+\end_layout
+
+\begin_layout Standard
+Es gibt keinen Weg für Kassopeia jedes weisse Feld genau einmal zu betreten.
+\end_layout
+
+\begin_layout Paragraph*
+kassiopeia2.txt
+\end_layout
+
+\begin_layout Standard
+Es gibt keinen Weg für Kassopeia jedes weisse Feld genau einmal zu betreten.
+\end_layout
+
+\begin_layout Paragraph*
+kassiopeia3.txt
+\end_layout
+
+\begin_layout Standard
+WWSSOOOONOSONNWWW
+\end_layout
+
+\begin_layout Paragraph*
+kassiopeia4.txt
+\end_layout
+
+\begin_layout Standard
+Es gibt keinen Weg für Kassopeia jedes weisse Feld genau einmal zu betreten.
+\end_layout
+
+\begin_layout Paragraph*
+kassiopeia5.txt
+\end_layout
+
+\begin_layout Standard
+WWWWWWWWWWWW
+\end_layout
+
+\begin_layout Paragraph*
+kassiopeia6.txt
+\end_layout
+
+\begin_layout Standard
+Es gibt keinen Weg für Kassopeia jedes weisse Feld genau einmal zu betreten.
+\end_layout
+
+\begin_layout Paragraph*
+kassiopeia7.txt
+\end_layout
+
+\begin_layout Standard
+Es gibt keinen Weg für Kassopeia jedes weisse Feld genau einmal zu betreten.
 \end_layout
 
 \begin_layout Section*
