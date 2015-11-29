@@ -1,14 +1,3 @@
-def find_in_2d_list(list_, element):
-    #Findet ein Element in einer zweidimensionalen Liste
-    for i, row in enumerate(list_):
-        try:
-            j = row.index(element)
-        except ValueError:
-            pass
-        else:
-            return i, j
-    raise ValueError(str(elem)+" is not in list")
-
 def find_neighbours(position, fields):
     #Findet alle Indizes von weissen Nachbarfelder
     x, y = position
@@ -33,26 +22,28 @@ def convert_to_direction(field1, field2): #Position von field1 relativ zu field2
     elif field1[1] < field2[1]:
         return "W"
     else:
-        print("Big problem:", field1, field2)
+        raise RuntimeError()
 
 
-fields = """6 9
-#########
-#  #    #
-#  # #  #
-#  K #  #
-#    #  #
-#########"""
+with open(r".\Kassopeia\kassopeia0.txt") as d:
+    STRING = d.read()
+
 
 #Macht den String zu einer zweidimensionalen Liste
-#True: weisses Feld
+#True: weisses Feld (oder Kassopeia)
 #False: schwarzes Feld
-#K: Kassopeia
-fields = [[field==" " if field != "K" else "K" for field in row] for row in fields.split("\n")[1:]]
-
-#Finde Kassopeias Feld
-i, j = find_in_2d_list(fields, "K") #Alle Koordinaten gehen von der linken oberen Ecke als Ursprung aus. Der erste Teil ist die Reihe, der zweite die Spalte
-fields[i][j] = True
+fields = []
+for i, row in enumerate(STRING.split("\n")[1:]): #ignoriere die erste Zeile
+    fields_row = []
+    for j, field in enumerate(row):
+        if field == "K":
+            fields_row.append(True)
+            kassopeia_field = (i,j) #Alle Koordinaten gehen von der linken oberen Ecke als Ursprung aus. Der erste Teil ist die Reihe, der zweite die Spalte
+        elif field == " ":
+            fields_row.append(True)
+        elif field == "#":
+            fields_row.append(False)
+    fields.append(fields_row)
 
 def find_path(previous_path):
     if all([field == ((i, j) in previous_path) for i, row in enumerate(fields) for j, field in enumerate(row)]): #Wenn alle weißen Felder abgedeckt sind.
@@ -63,8 +54,9 @@ def find_path(previous_path):
         path = find_path(previous_path+[field])
         if path:
             return path
+    return False #kein passender Weg konnte gefunden werden
 
-path = find_path([(i, j)])
+path = find_path([kassopeia_field])
 
 if path:
     print("".join([convert_to_direction(path[i], path[i-1]) for i in range(1, len(path))]))

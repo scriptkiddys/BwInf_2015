@@ -103,6 +103,493 @@ Lösungen von Christian Zdralek und Karl Welzel
 \end_layout
 
 \begin_layout Section*
+Junioraufgabe 1
+\end_layout
+
+\begin_layout Standard
+Da die Aufgabe darin besteht, alle Rechtecke zu genehmigen, die sich mit
+ keinem bereits genehmigten überscheiden, besteht hier die Hauptaufgabe
+ darin zu überprüfen, ob sich zwei gegebene Rechtecke überschneiden.
+\end_layout
+
+\begin_layout Subsection*
+Lösungsidee:
+\end_layout
+
+\begin_layout Standard
+Anstatt zu betrachten, wann sich zwei Rechtecke überschneiden, soll betrachtet
+ werden, wann sie dies nicht tun.
+ Es gibt vier Fälle die unterschieden werden:
+\end_layout
+
+\begin_layout Enumerate
+Das erste Rechteck liegt über dem zweiten.
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ Die y-Koordinate der unteren Kante vom ersten Rechteck ist größer als die
+ y-Koordinate der oberen Kante vom zweitem.
+\end_layout
+
+\begin_layout Enumerate
+Das erste Rechteck liegt unter dem zweiten.
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ Die y-Koordinate der oberen Kante vom ersten Rechteck ist kleiner als die
+ y-Koordinate der unteren Kante vom zweitem.
+\end_layout
+
+\begin_layout Enumerate
+Das erste Rechteck liegt links neben dem zweiten.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ Die x-Koordinate der rechten Kante vom ersten Rechteck ist kleiner als
+ die y-Koordinate der linken Kante vom zweitem.
+\end_layout
+
+\begin_layout Enumerate
+Das erste Rechteck liegt rechts neben dem zweiten.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ Die x-Koordinate der linken Kante vom ersten Rechteck ist größer als die
+ y-Koordinate der rechten Kante vom zweitem.
+\end_layout
+
+\begin_layout Standard
+Wenn einer dieser Fälle eintritt, dann überschneiden sich die Rechtecke
+ nicht.
+ Es ist klar, dass wenn das erste Rechteck nicht neben dem zweiten liegt,
+ es zwangsläufig Überschneidungen gibt.
+ Also überschneiden sich zwei Rechtecke genau dann, wenn keiner der vier
+ Fälle eintritt.
+\end_layout
+
+\begin_layout Subsection*
+Quelltext:
+\end_layout
+
+\begin_layout LyX-Code
+def overlapping(claim1, claim2):
+\end_layout
+
+\begin_layout LyX-Code
+    return not (
+\end_layout
+
+\begin_layout LyX-Code
+        claim[1] >= claim2[3] or #claim1 liegt über claim2
+\end_layout
+
+\begin_layout LyX-Code
+        claim[3] <= claim2[1] or #claim1 liegt unter claim2
+\end_layout
+
+\begin_layout LyX-Code
+        claim[2] <= claim2[0] or #claim1 liegt links neben claim2
+\end_layout
+
+\begin_layout LyX-Code
+        claim[0] >= claim2[2]) #claim1 liegt rechts neben claim2 
+\end_layout
+
+\begin_layout Section*
+Junioraufgabe 2
+\end_layout
+
+\begin_layout Subsection*
+Lösungsidee:
+\end_layout
+
+\begin_layout Standard
+Da das Ziel ist zu überprüfen, ob Kassopeia alle weißen Felder erreichen
+ kann, soll versucht werden ausgehend von eine Liste mit Feldern, die Kassopeia
+ erreichen kann zu erstellen, die am Anfang nur mit Kassopeias Feld gefüllt
+ ist und dann jeweils um alle angrenzenden Felder der Felder in dieser Liste
+ erweitert wird, bis es keine weiteren gibt.
+ Diese sind dann alle Felder die Kassopeia erreichen kann und nun kann überprüft
+ werden, ob dies alle weißen Felder sind.
+ 
+\end_layout
+
+\begin_layout Standard
+Um diesen Vorgang etwas schneller zu machen werden die Felder in drei Stufen
+ eingeteilt:
+\end_layout
+
+\begin_layout Enumerate
+Neue Felder: alle Felder die in einem Schritt als weiße Nachbarfelder von
+ überprüften Feldern gefunden worden
+\end_layout
+
+\begin_layout Enumerate
+Überprüfte Felder: Felder, die von Kassopeia aus erreichbar sind, deren
+ Nachbarfelder aber noch nicht überprüft wurden
+\end_layout
+
+\begin_layout Enumerate
+Vollstandig überprüfte Felder: Felder, die von Kassopeia aus erreichbar
+ sind und deren Nachbarfelder bereits überprüft wurden.
+\end_layout
+
+\begin_layout Standard
+Das Feld von Kassopeia wird am Anfang zu den überprüften Feldern gezählt
+ und dann werden in jedem Schritt folgende Anweisungen ausgeführt:
+\end_layout
+
+\begin_layout Enumerate
+Alle weißen Nachbarfelder von überprüften Feldern werden zu neuen Feldern.
+\end_layout
+
+\begin_layout Enumerate
+Die überprüften Felder werden zu vollständig überprüften Feldern.
+\end_layout
+
+\begin_layout Enumerate
+Alle neuen Felder, die nicht bereits vollständig überprüft wurden, werden
+ zu überprüften Feldern.
+\end_layout
+
+\begin_layout Standard
+Dies wird so lange durchgeführt bis es keine neuen Felder mehr gibt und
+ damit alle weißen Felder, die Kassopeia erreichen kann, zu den vollständig
+ überprüften Feldern gehören.
+\end_layout
+
+\begin_layout Standard
+Um diesen Vorgang besser zu visualisieren, sind hier einzelne Schritte für
+ das Beispiel aus der Aufgabe dargestellt.
+ Hier steht 
+\begin_inset Quotes gld
+\end_inset
+
+Z
+\begin_inset Quotes grd
+\end_inset
+
+ für vollständig überprüfte und 
+\begin_inset Quotes gld
+\end_inset
+
+A
+\begin_inset Quotes grd
+\end_inset
+
+ für überprüfte Felder.
+ (Neue Felder sind nicht dargestellt, da sie nur als Zwischenstufe innerhalb
+ eines Schrittes dienen und hier die Felder jeweils nach einem Schritt dargestel
+lt werden.)
+\end_layout
+
+\begin_layout LyX-Code
+#########
+\end_layout
+
+\begin_layout LyX-Code
+#  #    #
+\end_layout
+
+\begin_layout LyX-Code
+#  # #  #
+\end_layout
+
+\begin_layout LyX-Code
+#  A #  #
+\end_layout
+
+\begin_layout LyX-Code
+#    #  #
+\end_layout
+
+\begin_layout LyX-Code
+#########
+\end_layout
+
+\begin_layout LyX-Code
+Schritt: 0
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+#########
+\end_layout
+
+\begin_layout LyX-Code
+#  #    #
+\end_layout
+
+\begin_layout LyX-Code
+#  # #  #
+\end_layout
+
+\begin_layout LyX-Code
+# AZA#  #
+\end_layout
+
+\begin_layout LyX-Code
+#  A #  #
+\end_layout
+
+\begin_layout LyX-Code
+#########
+\end_layout
+
+\begin_layout LyX-Code
+Schritt: 1
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+#########
+\end_layout
+
+\begin_layout LyX-Code
+#  #    #
+\end_layout
+
+\begin_layout LyX-Code
+# A#A#  #
+\end_layout
+
+\begin_layout LyX-Code
+#AZZZ#  #
+\end_layout
+
+\begin_layout LyX-Code
+# AZA#  #
+\end_layout
+
+\begin_layout LyX-Code
+#########
+\end_layout
+
+\begin_layout LyX-Code
+Schritt: 2
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+#########
+\end_layout
+
+\begin_layout LyX-Code
+# A#A   #
+\end_layout
+
+\begin_layout LyX-Code
+#AZ#Z#  #
+\end_layout
+
+\begin_layout LyX-Code
+#ZZZZ#  #
+\end_layout
+
+\begin_layout LyX-Code
+#AZZZ#  #
+\end_layout
+
+\begin_layout LyX-Code
+######### 
+\end_layout
+
+\begin_layout LyX-Code
+Schritt: 3
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+...
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+#########
+\end_layout
+
+\begin_layout LyX-Code
+#ZZ#ZZZZ#
+\end_layout
+
+\begin_layout LyX-Code
+#ZZ#Z#ZZ#
+\end_layout
+
+\begin_layout LyX-Code
+#ZZZZ#ZZ#
+\end_layout
+
+\begin_layout LyX-Code
+#ZZZZ#ZZ#
+\end_layout
+
+\begin_layout LyX-Code
+#########
+\end_layout
+
+\begin_layout LyX-Code
+Schritt: 10
+\end_layout
+
+\begin_layout Subsection*
+Beispiele:
+\end_layout
+
+\begin_layout Paragraph*
+kassopeia1.txt
+\end_layout
+
+\begin_layout Standard
+Kassopeia sind einige Felder versperrt.
+\end_layout
+
+\begin_layout Paragraph*
+kassopeia2.txt
+\end_layout
+
+\begin_layout Standard
+Kassopeia kann alle Felder erreichen.
+\end_layout
+
+\begin_layout Paragraph*
+kassopeia3.txt
+\end_layout
+
+\begin_layout Standard
+Kassopeia kann alle Felder erreichen.
+\end_layout
+
+\begin_layout Paragraph*
+kassopeia4.txt
+\end_layout
+
+\begin_layout Standard
+Kassopeia kann alle Felder erreichen.
+\end_layout
+
+\begin_layout Paragraph*
+kassopeia5.txt
+\end_layout
+
+\begin_layout Standard
+Kassopeia kann alle Felder erreichen.
+\end_layout
+
+\begin_layout Paragraph*
+kassopeia6.txt
+\end_layout
+
+\begin_layout Standard
+Kassopeia kann alle Felder erreichen.
+\end_layout
+
+\begin_layout Paragraph*
+kassopeia7.txt
+\end_layout
+
+\begin_layout Standard
+Kassopeia kann alle Felder erreichen.
+\end_layout
+
+\begin_layout Subsection*
+Quelltext:
+\end_layout
+
+\begin_layout LyX-Code
+step = 0
+\end_layout
+
+\begin_layout LyX-Code
+first = True
+\end_layout
+
+\begin_layout LyX-Code
+while new_fields or first: 
+\end_layout
+
+\begin_layout LyX-Code
+    first = False
+\end_layout
+
+\begin_layout LyX-Code
+    print_visualizing_fields(visualizing_fields, step)
+\end_layout
+
+\begin_layout LyX-Code
+    new_fields = set() 
+\end_layout
+
+\begin_layout LyX-Code
+    for cell in checked_fields: 
+\end_layout
+
+\begin_layout LyX-Code
+        new_fields |= find_neighbours(cell, fields) 
+\end_layout
+
+\begin_layout LyX-Code
+    fully_checked_fields |= checked_fields 
+\end_layout
+
+\begin_layout LyX-Code
+    checked_fields = new_fields-fully_checked_fields 
+\end_layout
+
+\begin_layout LyX-Code
+    for field in fully_checked_fields:
+\end_layout
+
+\begin_layout LyX-Code
+        visualizing_fields[field[0]][field[1]] = "Z"
+\end_layout
+
+\begin_layout LyX-Code
+    for field in checked_fields:
+\end_layout
+
+\begin_layout LyX-Code
+        visualizing_fields[field[0]][field[1]] = "A"
+\end_layout
+
+\begin_layout LyX-Code
+    step += 1
+\end_layout
+
+\begin_layout Section*
 Aufgabe 4
 \end_layout
 
