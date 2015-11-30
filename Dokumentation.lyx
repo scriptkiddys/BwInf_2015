@@ -470,6 +470,14 @@ Beispiele:
 \end_layout
 
 \begin_layout Paragraph*
+kassiopeia0.txt
+\end_layout
+
+\begin_layout Standard
+Kassiopeia kann alle Felder erreichen.
+\end_layout
+
+\begin_layout Paragraph*
 kassiopeia1.txt
 \end_layout
 
@@ -649,6 +657,14 @@ kassiopeia1.txt
 \end_layout
 
 \begin_layout Standard
+WNNWSSSOOONNNOOSSSONNN
+\end_layout
+
+\begin_layout Paragraph*
+kassiopeia1.txt
+\end_layout
+
+\begin_layout Standard
 Es gibt keinen Weg für Kassopeia jedes weiße Feld genau einmal zu betreten.
 \end_layout
 
@@ -750,6 +766,151 @@ def find_path(previous_path):
 
 \begin_layout LyX-Code
     return False 
+\end_layout
+
+\begin_layout Section*
+Aufgabe 3
+\end_layout
+
+\begin_layout Subsection*
+Lösungsidee:
+\end_layout
+
+\begin_layout Standard
+Um die Anzahl der Weg, in denen man die Flaschen auf die Behälter verteilen
+ kann zu ermitteln, haben auch hier einen rekursiven Lösungsansatz benutzt.
+\end_layout
+
+\begin_layout Standard
+Um die Anzahl an Möglichkeiten 
+\begin_inset Formula $N$
+\end_inset
+
+ Flaschen auf 
+\begin_inset Formula $k$
+\end_inset
+
+ Behälter zu ermitteln
+\end_layout
+
+\begin_layout Itemize
+wird überprüft, ob 
+\begin_inset Formula $N$
+\end_inset
+
+ negativ ist 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ 0 Möglichkeiten
+\end_layout
+
+\begin_layout Itemize
+wird überprüft, ob 
+\begin_inset Formula $N=0$
+\end_inset
+
+ gilt, dann wurden bereits alle Flaschen verteilt 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ 1 Möglichkeit
+\end_layout
+
+\begin_layout Itemize
+wird überprüft, ob 
+\begin_inset Formula $N>0\land k=0$
+\end_inset
+
+, gilt, dann gibt es zwar noch Flaschen, aber keine Behälter mehr auf die
+ sie verteilt werden können 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+0 Möglichkeiten
+\end_layout
+
+\begin_layout Itemize
+wird überprüft ob 
+\begin_inset Formula $N$
+\end_inset
+
+ Flaschen überhaupt in die Behälter passen, wenn nicht 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+0 Möglichkeiten
+\end_layout
+
+\begin_layout Itemize
+wenn keiner dieser Fälle eintritt, dann nimmt sich das Programm den ersten
+ Behälter und findet für jede mögliche Füllmenge 
+\begin_inset Formula $M$
+\end_inset
+
+ dieses Behälters die Möglichkeiten 
+\begin_inset Formula $N-M$
+\end_inset
+
+ Flaschen auf die restlichen Behälter zu verteilen.
+ Danach addiert es die Anzahl der Möglichkeiten und gibt sie als Ergebnis
+ zurück
+\end_layout
+
+\begin_layout Subsection*
+Beispiele:
+\end_layout
+
+\begin_layout Paragraph
+flaschenzug0.txt 
+\end_layout
+
+\begin_layout Standard
+2 Moeglichkeiten
+\end_layout
+
+\begin_layout Paragraph*
+flaschenzug1.txt
+\end_layout
+
+\begin_layout Standard
+13 Moeglichkeiten
+\end_layout
+
+\begin_layout Paragraph*
+flaschenzug2.txt
+\end_layout
+
+\begin_layout Standard
+48 Moeglichkeiten
+\end_layout
+
+\begin_layout Paragraph*
+flaschenzug3.txt
+\end_layout
+
+\begin_layout Standard
+6209623185136 Moeglichkeiten
+\end_layout
+
+\begin_layout Paragraph*
+flaschenzug4.txt
+\end_layout
+
+\begin_layout Standard
+743587168174797979278525 Moeglichkeiten
+\end_layout
+
+\begin_layout Paragraph*
+flaschenzug5.txt
+\end_layout
+
+\begin_layout Standard
+4237618332168130643734395335220863408628 Moeglichkeiten
+\end_layout
+
+\begin_layout Subsection*
+Quelltext:
 \end_layout
 
 \begin_layout Section*
