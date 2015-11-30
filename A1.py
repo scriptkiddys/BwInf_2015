@@ -25,7 +25,7 @@ def convert_to_direction(field1, field2): #Position von field1 relativ zu field2
         raise RuntimeError()
 
 
-with open(r".\Kassiopeia\kassiopeia7.txt") as d:
+with open(r".\Kassiopeia\kassiopeia0.txt") as d:
     STRING = d.read()
     while STRING.rsplit("\n", 1)[1] == "": #leere letzte Zeile löschen
         STRING = STRING.rsplit("\n", 1)[0]
@@ -48,7 +48,9 @@ for i, row in enumerate(STRING.split("\n")[1:]): #ignoriere die erste Zeile
     fields.append(fields_row)
 
 def find_path(previous_path):
-    if all([field == ((i, j) in previous_path) for i, row in enumerate(fields) for j, field in enumerate(row)]): #Wenn alle weißen Felder abgedeckt sind.
+    if all([field == ((i, j) in previous_path)
+            for i, row in enumerate(fields)
+            for j, field in enumerate(row)]): #Wenn alle weißen Felder abgedeckt sind.
         return previous_path #ist dies der richtige Weg und er wird zurück gegeben
     for field in find_neighbours(previous_path[-1], fields):
         if field in previous_path: #Felder auf denen Kassopeia bereits war können nicht erneut betreten werden

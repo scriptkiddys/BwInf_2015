@@ -186,7 +186,7 @@ Wenn einer dieser Fälle eintritt, dann überschneiden sich die Rechtecke
 \end_layout
 
 \begin_layout Subsection*
-Quelltext:
+Quelltext (jA1.py):
 \end_layout
 
 \begin_layout LyX-Code
@@ -526,7 +526,7 @@ Kassiopeia kann alle Felder erreichen.
 \end_layout
 
 \begin_layout Subsection*
-Quelltext:
+Quelltext (jA2.py):
 \end_layout
 
 \begin_layout LyX-Code
@@ -649,7 +649,7 @@ kassiopeia1.txt
 \end_layout
 
 \begin_layout Standard
-Es gibt keinen Weg für Kassopeia jedes weisse Feld genau einmal zu betreten.
+Es gibt keinen Weg für Kassopeia jedes weiße Feld genau einmal zu betreten.
 \end_layout
 
 \begin_layout Paragraph*
@@ -657,7 +657,7 @@ kassiopeia2.txt
 \end_layout
 
 \begin_layout Standard
-Es gibt keinen Weg für Kassopeia jedes weisse Feld genau einmal zu betreten.
+Es gibt keinen Weg für Kassopeia jedes weiße Feld genau einmal zu betreten.
 \end_layout
 
 \begin_layout Paragraph*
@@ -673,7 +673,7 @@ kassiopeia4.txt
 \end_layout
 
 \begin_layout Standard
-Es gibt keinen Weg für Kassopeia jedes weisse Feld genau einmal zu betreten.
+Es gibt keinen Weg für Kassopeia jedes weiße Feld genau einmal zu betreten.
 \end_layout
 
 \begin_layout Paragraph*
@@ -689,7 +689,7 @@ kassiopeia6.txt
 \end_layout
 
 \begin_layout Standard
-Es gibt keinen Weg für Kassopeia jedes weisse Feld genau einmal zu betreten.
+Es gibt keinen Weg für Kassopeia jedes weiße Feld genau einmal zu betreten.
 \end_layout
 
 \begin_layout Paragraph*
@@ -697,7 +697,59 @@ kassiopeia7.txt
 \end_layout
 
 \begin_layout Standard
-Es gibt keinen Weg für Kassopeia jedes weisse Feld genau einmal zu betreten.
+Es gibt keinen Weg für Kassopeia jedes weiße Feld genau einmal zu betreten.
+\end_layout
+
+\begin_layout Subsection*
+Quelltext:
+\end_layout
+
+\begin_layout LyX-Code
+def find_path(previous_path):
+\end_layout
+
+\begin_layout LyX-Code
+    if all([field == ((i, j) in previous_path)
+\end_layout
+
+\begin_layout LyX-Code
+            for i, row in enumerate(fields)
+\end_layout
+
+\begin_layout LyX-Code
+            for j, field in enumerate(row)]): 
+\end_layout
+
+\begin_layout LyX-Code
+        return previous_path 
+\end_layout
+
+\begin_layout LyX-Code
+    for field in find_neighbours(previous_path[-1], fields):
+\end_layout
+
+\begin_layout LyX-Code
+        if field in previous_path: 
+\end_layout
+
+\begin_layout LyX-Code
+            continue 
+\end_layout
+
+\begin_layout LyX-Code
+        path = find_path(previous_path+[field])
+\end_layout
+
+\begin_layout LyX-Code
+        if path:
+\end_layout
+
+\begin_layout LyX-Code
+            return path
+\end_layout
+
+\begin_layout LyX-Code
+    return False 
 \end_layout
 
 \begin_layout Section*
@@ -730,6 +782,1133 @@ Hier werden die rechten zwei Spalten durch die linken bestimmt, deshalb
 \end_inset
 
  verschiedene Schlüsselkarten.
+\end_layout
+
+\begin_layout Subsection*
+Teilaufgabe 2:
+\end_layout
+
+\begin_layout Subsection*
+Lösungsidee:
+\end_layout
+
+\begin_layout Standard
+Da es die Aufgabe ist, möglichst unterschiedliche Schlüsselkarten zu erzeugen,
+ haben wir zunächst versucht festzulegen, was 
+\begin_inset Quotes gld
+\end_inset
+
+unterschiedlich
+\begin_inset Quotes grd
+\end_inset
+
+ hier bedeutet und uns darauf geeinigt, dass unterschiedlich bedeutet, dass
+ wenn man zwei Schlüsselkarten (in der gleichen Ausrichtung, es wurde nicht
+ auf das Problem aus Teilaufgabe 1 eingegangen) vergleicht sich möglichst
+ viele der einzelnen Stanz-Positionen darin unterscheiden, ob sie gestanzt
+ wurden oder nicht.
+ Wenn also bei der ersten Schlüsselkarte an jeder vorgesehenen Position
+ ein Loch gestanzt wurde und bei der zweiten auch außer in der ersten Reihe,
+ dann unterscheiden sich 5 Positionen und die beiden Schlüsselkarten haben
+ einen sogenannten 
+\begin_inset Quotes gld
+\end_inset
+
+Abstand
+\begin_inset Quotes grd
+\end_inset
+
+ (Maßeinheit, die auch im Programm verwendet wird) von 5.
+ 
+\end_layout
+
+\begin_layout Standard
+Da wir die Schlüsselkarten einzeln hintereinander erzeugen wollten, mussten
+ wir nun ein Maß für den Abstand zwischen den schon vorhandenen Schlüssel
+ und dem neuen.
+ Dafür haben wird den 
+\begin_inset Quotes gld
+\end_inset
+
+Mindestabstand
+\begin_inset Quotes grd
+\end_inset
+
+ eingeführt.
+ Er gibt den kleinsten Abstand zwischen der neuen Schlüsselkarte und einer
+ der schon vorhandenen Schlüsselkarte an.
+\end_layout
+
+\begin_layout Standard
+Nun soll also eine Schlüsselkarte gefunden werden, die zu den schon vorhandenen
+ einen möglichst großen Mindestabstand haben soll.
+ Dafür muss es zunächst Schlüsselkarten geben, die als Ausgangspunkt genutzt
+ werden.
+ Dafür bieten sich die beiden Extreme 
+\begin_inset Quotes gld
+\end_inset
+
+alle Positionen gestanzt
+\begin_inset Quotes grd
+\end_inset
+
+ und 
+\begin_inset Quotes gld
+\end_inset
+
+keine Position gestanzt
+\begin_inset Quotes grd
+\end_inset
+
+ an, weil sie den größtmöglichen Abstand von 25 zueinander haben.
+ Danach kann es natürlich keine weiteren Schlüsselkarten mit dem Mindestabstand
+ von 25 geben, sondern nur noch maximal welche mit dem Mindestabstand von
+ 12 (wenn man genau 12 oder 13 Positionen ausstanzt).
+\end_layout
+
+\begin_layout Standard
+Nachdem die Vorbereitungen getan sind, haben wir uns folgendes Verfahren
+ ausgedacht: Wenn eine neue Schlüsselkarte erzeugt werden soll, wird als
+ Ausgangspunkt eine Schüsselkarte verwendet, die bei jeder Position mit
+ dem Großteil der schon vorhandenen Schlüsselkarten übereinstimmt (wenn
+ der Großteil an dieser Position ein Loch hat, hat sie es auch und umgekehrt).
+ Dann werden die einzelnen Positionen mehrmals in zufälliger Reihenfolge
+ durchlaufen und für jede Position die ähnlichste Schlüsselkarte (also die
+ mit dem geringsten Abstand) gefunden und an dieser Position der Zustand
+ der neuen Schlüsselkarte als das Gegenteil des Zustandes der ähnlichsten
+ Schlüsselkarte gesetzt.
+ Damit wird der Mindestabstand der neuen Schlüsselkarte erhöht, da sich
+ die neue Schlüsselkarte im Vergleich zur ähnlichsten an dieser Position
+ unterscheidet.
+ Es kann passieren, dass die beiden Schlüsselkarte sich an dieser Position
+ bereits unterschieden haben, dann ändert sich zwar der Mindestabstand nicht,
+ aber es ändert sich die ähnlichste Schlüsselkarte auch nicht bis eine Änderung
+ der neuen stattgefunden hat.
+\end_layout
+
+\begin_layout Standard
+Bei diesem System wird der Mindestabstand einer Schlüsselkarte also immer
+ weiter erhöht, aber es stellt sich die Frage ob der größtmögliche Mindestabstan
+d für diese Schlüsselkarte bereits erreicht wurde.
+ Dafür versucht das Programm die Schlüsselkarte so lange zu verbessern bis
+ sie einen Mindestabstand hat, der genau so groß ist wie bei dem Schlüssel
+ davor (anfangs natürlich 12 und nicht 25).
+ Es bricht jedoch nach 100 Versuchen (hat sich in Tests als sinnvolle Größe
+ herausgestellt) dies ab und findet einen Schlüssel, der einen um 1 verringerten
+ Mindestabstand hat.
+\end_layout
+
+\begin_layout Standard
+Es hat sich herausgestellt, dass wenn eine neue Schlüsselkarte einen Mindestabst
+and von 
+\begin_inset Formula $z$
+\end_inset
+
+ zu allen anderen hat, auch seine inverse Gegen-Schlüsselkarte einen solchen
+ Mindestabstand von 
+\begin_inset Formula $z$
+\end_inset
+
+ hat.
+ Wir haben also unseren Vorgang damit verbessert, dass jede zweite Schlüsselkart
+e als inverse der vorherigen generiert wird und da dies sehr schnell geht
+ konnte damit die Geschwindigkeit fast halbiert werden.
+\end_layout
+
+\begin_layout Standard
+Da die Schlüsselkarten auch ausgegeben werden sollen, haben wir uns hierfür
+ eine einfach Textdarstellung ausgedacht: Ausgestanzte Positionen werden
+ als 
+\begin_inset Quotes gld
+\end_inset
+
+x
+\begin_inset Quotes grd
+\end_inset
+
+ dargestellt, nicht ausgestanzte als 
+\begin_inset Quotes gld
+\end_inset
+
+.
+\begin_inset Quotes grd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Beispiele:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $N=7$
+\end_inset
+
+:
+\begin_inset Newline newline
+\end_inset
+
+Der Mindestabstand der letzten erzeugten Schlüsselkarte liegt bei 12
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+Schluesselkarte 1:
+\end_layout
+
+\begin_layout LyX-Code
+xxxxx
+\end_layout
+
+\begin_layout LyX-Code
+xxxxx
+\end_layout
+
+\begin_layout LyX-Code
+xxxxx
+\end_layout
+
+\begin_layout LyX-Code
+xxxxx
+\end_layout
+
+\begin_layout LyX-Code
+xxxxx
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 25
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 2:
+\end_layout
+
+\begin_layout LyX-Code
+.....
+\end_layout
+
+\begin_layout LyX-Code
+.....
+\end_layout
+
+\begin_layout LyX-Code
+.....
+\end_layout
+
+\begin_layout LyX-Code
+.....
+\end_layout
+
+\begin_layout LyX-Code
+.....
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 25
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 3:
+\end_layout
+
+\begin_layout LyX-Code
+x.x.x
+\end_layout
+
+\begin_layout LyX-Code
+x..xx
+\end_layout
+
+\begin_layout LyX-Code
+x..x.
+\end_layout
+
+\begin_layout LyX-Code
+.x..x
+\end_layout
+
+\begin_layout LyX-Code
+xx.x.
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 12
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 4:
+\end_layout
+
+\begin_layout LyX-Code
+.x.x.
+\end_layout
+
+\begin_layout LyX-Code
+.xx..
+\end_layout
+
+\begin_layout LyX-Code
+.xx.x
+\end_layout
+
+\begin_layout LyX-Code
+x.xx.
+\end_layout
+
+\begin_layout LyX-Code
+..x.x
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 12
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 5:
+\end_layout
+
+\begin_layout LyX-Code
+..x.x
+\end_layout
+
+\begin_layout LyX-Code
+xx...
+\end_layout
+
+\begin_layout LyX-Code
+xxxxx
+\end_layout
+
+\begin_layout LyX-Code
+..xxx
+\end_layout
+
+\begin_layout LyX-Code
+x....
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 12
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 6:
+\end_layout
+
+\begin_layout LyX-Code
+xx.x.
+\end_layout
+
+\begin_layout LyX-Code
+..xxx
+\end_layout
+
+\begin_layout LyX-Code
+.....
+\end_layout
+
+\begin_layout LyX-Code
+xx...
+\end_layout
+
+\begin_layout LyX-Code
+.xxxx
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 12
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 7:
+\end_layout
+
+\begin_layout LyX-Code
+.....
+\end_layout
+
+\begin_layout LyX-Code
+xxxxx
+\end_layout
+
+\begin_layout LyX-Code
+....x
+\end_layout
+
+\begin_layout LyX-Code
+xxxx.
+\end_layout
+
+\begin_layout LyX-Code
+x..x.
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 12
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset Formula $N=20$
+\end_inset
+
+:
+\begin_inset Newline newline
+\end_inset
+
+Der Mindestabstand der letzten erzeugten Schlüsselkarte liegt bei 11
+\begin_inset Newline newline
+\end_inset
+
+Die erzeugten Schlüssel sind nicht die gleichen wie bei 
+\begin_inset Formula $N=7$
+\end_inset
+
+, weil bei der Erzeugung auch der Zufall eine Rolle spielt.
+\end_layout
+
+\begin_deeper
+\begin_layout LyX-Code
+Schluesselkarte 1:
+\end_layout
+
+\begin_layout LyX-Code
+xxxxx
+\end_layout
+
+\begin_layout LyX-Code
+xxxxx
+\end_layout
+
+\begin_layout LyX-Code
+xxxxx
+\end_layout
+
+\begin_layout LyX-Code
+xxxxx
+\end_layout
+
+\begin_layout LyX-Code
+xxxxx
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 25
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 2:
+\end_layout
+
+\begin_layout LyX-Code
+.....
+\end_layout
+
+\begin_layout LyX-Code
+.....
+\end_layout
+
+\begin_layout LyX-Code
+.....
+\end_layout
+
+\begin_layout LyX-Code
+.....
+\end_layout
+
+\begin_layout LyX-Code
+.....
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 25
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 3:
+\end_layout
+
+\begin_layout LyX-Code
+x..xx
+\end_layout
+
+\begin_layout LyX-Code
+x.x.x
+\end_layout
+
+\begin_layout LyX-Code
+x.x..
+\end_layout
+
+\begin_layout LyX-Code
+..x..
+\end_layout
+
+\begin_layout LyX-Code
+x.xxx
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 12
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 4:
+\end_layout
+
+\begin_layout LyX-Code
+.xx..
+\end_layout
+
+\begin_layout LyX-Code
+.x.x.
+\end_layout
+
+\begin_layout LyX-Code
+.x.xx
+\end_layout
+
+\begin_layout LyX-Code
+xx.xx
+\end_layout
+
+\begin_layout LyX-Code
+.x...
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 12
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 5:
+\end_layout
+
+\begin_layout LyX-Code
+xx...
+\end_layout
+
+\begin_layout LyX-Code
+xx.xx
+\end_layout
+
+\begin_layout LyX-Code
+xx.x.
+\end_layout
+
+\begin_layout LyX-Code
+....x
+\end_layout
+
+\begin_layout LyX-Code
+..xxx
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 12
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 6:
+\end_layout
+
+\begin_layout LyX-Code
+..xxx
+\end_layout
+
+\begin_layout LyX-Code
+..x..
+\end_layout
+
+\begin_layout LyX-Code
+..x.x
+\end_layout
+
+\begin_layout LyX-Code
+xxxx.
+\end_layout
+
+\begin_layout LyX-Code
+xx...
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 12
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 7:
+\end_layout
+
+\begin_layout LyX-Code
+x.x.x
+\end_layout
+
+\begin_layout LyX-Code
+.....
+\end_layout
+
+\begin_layout LyX-Code
+xxxxx
+\end_layout
+
+\begin_layout LyX-Code
+x...x
+\end_layout
+
+\begin_layout LyX-Code
+x..xx
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 12
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 8:
+\end_layout
+
+\begin_layout LyX-Code
+.x.x.
+\end_layout
+
+\begin_layout LyX-Code
+xxxxx
+\end_layout
+
+\begin_layout LyX-Code
+.....
+\end_layout
+
+\begin_layout LyX-Code
+.xxx.
+\end_layout
+
+\begin_layout LyX-Code
+.xx..
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 12
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 9:
+\end_layout
+
+\begin_layout LyX-Code
+xxxx.
+\end_layout
+
+\begin_layout LyX-Code
+....x
+\end_layout
+
+\begin_layout LyX-Code
+.x..x
+\end_layout
+
+\begin_layout LyX-Code
+xxx..
+\end_layout
+
+\begin_layout LyX-Code
+..xxx
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 12
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 10:
+\end_layout
+
+\begin_layout LyX-Code
+....x
+\end_layout
+
+\begin_layout LyX-Code
+xxxx.
+\end_layout
+
+\begin_layout LyX-Code
+x.xx.
+\end_layout
+
+\begin_layout LyX-Code
+...xx
+\end_layout
+
+\begin_layout LyX-Code
+xx...
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 12
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 11:
+\end_layout
+
+\begin_layout LyX-Code
+xx..x
+\end_layout
+
+\begin_layout LyX-Code
+.x.xx
+\end_layout
+
+\begin_layout LyX-Code
+x...x
+\end_layout
+
+\begin_layout LyX-Code
+x.x..
+\end_layout
+
+\begin_layout LyX-Code
+xx..x
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 12
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 12:
+\end_layout
+
+\begin_layout LyX-Code
+..xx.
+\end_layout
+
+\begin_layout LyX-Code
+x.x..
+\end_layout
+
+\begin_layout LyX-Code
+.xxx.
+\end_layout
+
+\begin_layout LyX-Code
+.x.xx
+\end_layout
+
+\begin_layout LyX-Code
+..xx.
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 12
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 13:
+\end_layout
+
+\begin_layout LyX-Code
+..xx.
+\end_layout
+
+\begin_layout LyX-Code
+.x.x.
+\end_layout
+
+\begin_layout LyX-Code
+x.xx.
+\end_layout
+
+\begin_layout LyX-Code
+.xx..
+\end_layout
+
+\begin_layout LyX-Code
+.x.xx
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 12
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 14:
+\end_layout
+
+\begin_layout LyX-Code
+xx..x
+\end_layout
+
+\begin_layout LyX-Code
+x.x.x
+\end_layout
+
+\begin_layout LyX-Code
+.x..x
+\end_layout
+
+\begin_layout LyX-Code
+x..xx
+\end_layout
+
+\begin_layout LyX-Code
+x.x..
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 12
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 15:
+\end_layout
+
+\begin_layout LyX-Code
+.x.xx 
+\end_layout
+
+\begin_layout LyX-Code
+...xx
+\end_layout
+
+\begin_layout LyX-Code
+xxx..
+\end_layout
+
+\begin_layout LyX-Code
+.x..x
+\end_layout
+
+\begin_layout LyX-Code
+xxx.x
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 11
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 16:
+\end_layout
+
+\begin_layout LyX-Code
+x.x..
+\end_layout
+
+\begin_layout LyX-Code
+xxx..
+\end_layout
+
+\begin_layout LyX-Code
+...xx
+\end_layout
+
+\begin_layout LyX-Code
+x.xx.
+\end_layout
+
+\begin_layout LyX-Code
+...x.
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 11
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 17:
+\end_layout
+
+\begin_layout LyX-Code
+x....
+\end_layout
+
+\begin_layout LyX-Code
+..xxx
+\end_layout
+
+\begin_layout LyX-Code
+x.xxx
+\end_layout
+
+\begin_layout LyX-Code
+xx...
+\end_layout
+
+\begin_layout LyX-Code
+..x..
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 11
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 18:
+\end_layout
+
+\begin_layout LyX-Code
+.xxxx
+\end_layout
+
+\begin_layout LyX-Code
+xx...
+\end_layout
+
+\begin_layout LyX-Code
+.x...
+\end_layout
+
+\begin_layout LyX-Code
+..xxx
+\end_layout
+
+\begin_layout LyX-Code
+xx.xx
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 11
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 19:
+\end_layout
+
+\begin_layout LyX-Code
+.xxxx
+\end_layout
+
+\begin_layout LyX-Code
+x..x.
+\end_layout
+
+\begin_layout LyX-Code
+..xxx
+\end_layout
+
+\begin_layout LyX-Code
+x....
+\end_layout
+
+\begin_layout LyX-Code
+..x.x
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 11
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+Schluesselkarte 20:
+\end_layout
+
+\begin_layout LyX-Code
+x....
+\end_layout
+
+\begin_layout LyX-Code
+.xx.x
+\end_layout
+
+\begin_layout LyX-Code
+xx...
+\end_layout
+
+\begin_layout LyX-Code
+.xxxx
+\end_layout
+
+\begin_layout LyX-Code
+xx.x.
+\end_layout
+
+\begin_layout LyX-Code
+Mindestabstand: 11
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset Formula $N=1000$
+\end_inset
+
+:
+\begin_inset Newline newline
+\end_inset
+
+Der Mindestabstand der letzten erzeugten Schlüsselkarte liegt bei 6.
+\end_layout
+
+\begin_layout Subsection*
+Quelltext (A4.py):
+\end_layout
+
+\begin_layout LyX-Code
+def next_key(keys, max_tries=100): 
+\end_layout
+
+\begin_layout LyX-Code
+    if len(keys) == 2:
+\end_layout
+
+\begin_layout LyX-Code
+        target_difference = 12
+\end_layout
+
+\begin_layout LyX-Code
+    else:
+\end_layout
+
+\begin_layout LyX-Code
+        target_difference = min_key_difference(keys[-1], keys[:-1])
+\end_layout
+
+\begin_layout LyX-Code
+    
+\end_layout
+
+\begin_layout LyX-Code
+    r = [sum(key[i] for key in keys) > len(keys)/2.
+ for i in range(25)]
+\end_layout
+
+\begin_layout LyX-Code
+    tries = 0
+\end_layout
+
+\begin_layout LyX-Code
+    while tries < max_tries and min_key_difference(r, keys) < target_difference
+ 
+\backslash
+
+\end_layout
+
+\begin_layout LyX-Code
+            or min_key_difference(r, keys) < max(target_difference-1, 1):
+\end_layout
+
+\begin_layout LyX-Code
+        for i in shuffled(range(25)):
+\end_layout
+
+\begin_layout LyX-Code
+            sim_key = min([(key_difference(key, r), key) for key in keys])[1]
+ 
+\end_layout
+
+\begin_layout LyX-Code
+            r[i] = not sim_key[i] 
+\end_layout
+
+\begin_layout LyX-Code
+        tries += 1
+\end_layout
+
+\begin_layout LyX-Code
+    return r
 \end_layout
 
 \end_body

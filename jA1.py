@@ -1,6 +1,6 @@
 def overlapping(claim1, claim2):
     return not (
-        claim[1] >= claim2[3] or #die untere y-Koordinate von claim1 ist groesser als die obere von claim2 -> claim1 liegt über claim2
+        claim[1] >= claim2[3] or #die untere y-Koordinate von claim1 ist groesser als die obere von claim2 -> claim1 liegt Ã¼ber claim2
         claim[3] <= claim2[1] or #die obere y-Koordinate von claim1 ist kleiner als die untere von claim2 -> claim1 liegt unter claim2
         claim[2] <= claim2[0] or #die rechte x-Koordinate von claim1 ist kleiner als die linke von claim2 -> claim1 liegt links neben claim2
         claim[0] >= claim2[2]) #die linke x-Koordinate von claim1 ist groesser als die rechte von claim2 -> claim1 liegt rechts neben claim2
